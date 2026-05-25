@@ -17,7 +17,7 @@
             userAge: Number(register.userAge),
             goalWeight: Number(register.goalWeight),
         }
-        const res = await fetch('http://193.233.133.68/api/register', {
+        const res = await fetch('https://leanlyapi.duckdns.org/api/register', {
             method: "POST", 
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(payload)

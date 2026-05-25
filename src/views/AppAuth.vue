@@ -16,7 +16,7 @@ const router = useRouter();
 const submitAuth = async () => {
 
     const auth = useAuthStore()
-    const res = await fetch('http://193.233.133.68/api/auth', {
+    const res = await fetch('https://leanlyapi.duckdns.org/api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify({
