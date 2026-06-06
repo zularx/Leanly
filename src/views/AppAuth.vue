@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { submitAuth } from '@/api/authApi';
-import DefaultLink from '@/components/ui/DefaultLink.vue';
 import FormHeader from '@/components/ui/FormHeader.vue';
 import FormInput from '@/components/ui/FormInput.vue';
 import NextStepBtn from '@/components/ui/NextStepBtn.vue';
@@ -8,6 +7,7 @@ import RegLayout from '@/layout/RegLayout.vue';
 import { ref } from 'vue'; 
 import { useRouter } from 'vue-router';
 import { authErrors } from '@/api/authApi.ts';
+import RegAuthLink from '@/components/ui/RegAuthLink.vue';
 
 
 const email = ref('');
@@ -55,10 +55,15 @@ async function handleSubmitAuth() {
                 </FormInput>
             </div>
             
-            <div class="flex gap-2">
-                <p class="dark:text-[#c9cbd0]">Еще нет аккаунта?</p>
-                <DefaultLink to="/register/step-1">Создать</DefaultLink>
-            </div>
+            <RegAuthLink to="/register/step-1">
+                <template #question>
+                    Еще нет аккаунта?
+                </template>
+
+                <template #link>
+                    Создать
+                </template>
+            </RegAuthLink>
             <NextStepBtn>
                 Войти
             </NextStepBtn>

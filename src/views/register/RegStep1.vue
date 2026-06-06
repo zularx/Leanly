@@ -6,6 +6,7 @@
     import FormInput from '@/components/ui/FormInput.vue';
     import FormHeader from '@/components/ui/FormHeader.vue';
     import { ref } from 'vue';
+    import RegAuthLink from '@/components/ui/RegAuthLink.vue';
 
 
     const router = useRouter();
@@ -26,7 +27,7 @@
     <RegLayout>
             <FormHeader>Регистрация: шаг 1</FormHeader>
             <form @submit.prevent="nextStep" class="w-full flex mt-4 flex-col gap-3 items-center justify-center text-[#151614]">
-                <FormInput v-model="register.nickname" id="nickName" name="nickName" type="text" placeholder="Введите никнейм" minlength="2" maxlength="30" required>
+                <FormInput v-model="register.nickname" id="nickName" name="nickName" type="text" placeholder="Введите никнейм" minlength="2" maxlength="30" autocomplete="off" required>
                     <template #inputLabel>
                         Никнейм
                     </template>
@@ -36,7 +37,7 @@
                     </template>
                 </FormInput>
 
-                <FormInput v-model="register.email" id="email" name="email" type="email" placeholder="Введите email" maxlength="100" required>
+                <FormInput v-model="register.email" id="email" name="email" type="email" placeholder="Введите email" maxlength="100" autocomplete="email" required>
                     <template #inputLabel>
                         Электронная почта
                     </template>
@@ -46,7 +47,7 @@
                     </template>
                 </FormInput>
 
-                <FormInput v-model="register.password" id="password" name="password" type="password" placeholder="Введите пароль" minlength="10" maxlength="128" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{10,128}$" required>
+                <FormInput v-model="register.password" id="password" name="password" type="password" placeholder="Введите пароль" minlength="10" maxlength="128" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{10,128}$" autocomplete="new-password" required>
                     <template #inputLabel>
                         Пароль
                     </template>
@@ -55,16 +56,15 @@
                         Заглушка ошибки
                     </template>
                 </FormInput>
+                <RegAuthLink to="/auth">
+                        <template #question>
+                            Уже есть аккаунт?
+                        </template>
 
-                <FormInput v-model="confirmPassword" id="confirmPassword" name="confirmPassword" type="password" placeholder="Введите пароль" minlength="10" maxlength="128" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{10,128}$" required>
-                    <template #inputLabel>
-                        Подтвердите пароль
-                    </template>
-
-                    <template #inputError>
-                        Заглушка ошибки
-                    </template>
-                </FormInput>
+                        <template #link>
+                            Войти
+                        </template>
+                    </RegAuthLink>
 
                 <NextStepBtn>
                     Далее

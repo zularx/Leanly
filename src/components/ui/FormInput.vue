@@ -20,6 +20,7 @@
                 :step="step"
                 :minlength="minlength"
                 :maxlength="maxlength"
+                :autocomplete="autocomplete"
                 @input="onInput"
                 />
     
@@ -51,6 +52,7 @@ import { computed, ref } from 'vue';
         step?: number
         minlength?: number | string
         maxlength?: number | string
+        autocomplete?: string
         }>()
     
     const showPassword = ref(false)
