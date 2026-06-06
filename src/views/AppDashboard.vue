@@ -10,6 +10,7 @@
     import { targetCalories } from '@/services/calories';
     import { loadStats, saveStats, isTodayStatsExist, statsErrors } from '@/api/statsApi';
     import FormInputError from '@/components/ui/FormInputError.vue';
+    import DefaultSection from '@/components/ui/DefaultSection.vue';
 
 
     const weights = ref<WeightHistory[]>([])
@@ -83,65 +84,84 @@
                 </div>
             </div>
         </section>
-        <section class="bg-[#f8fdef] dark:bg-[#0a1120] w-90 rounded-xl mt-8 p-4 md:w-3xl md:mt-16 lg:w-5xl lg:mt-20">
-            <h2 class="text-2xl dark:text-[#c9cbd0] font-bold md:text-3xl">Обновление веса</h2>
-            <form @submit.prevent="handleSubmitWeight">
-                <div>
-                    <FormInput v-model="currentWeight" id="currentWeight" name="currentWeight" placeholder="Введите вес в кг" type="number" max="250" min="0" @validation="weightIssueMessage = $event">
-                        Введите ваш текущий вес
-                    </FormInput>
-                    <FormInputError v-if="weightIssueMessage">{{ weightIssueMessage }}</FormInputError>
+
+        <DefaultSection>
+            <template #h2Header>
+                Обновление веса
+            </template>
+
+            <template #mainContent>
+                <form @submit.prevent="handleSubmitWeight" class="p-2 md:p-4">
+                    <div>
+                        <FormInput v-model="currentWeight" id="currentWeight" name="currentWeight" placeholder="Введите вес в кг" type="number" max="250" min="0" @validation="weightIssueMessage = $event">
+                            Введите ваш текущий вес
+                        </FormInput>
+                        <FormInputError v-if="weightIssueMessage">{{ weightIssueMessage }}</FormInputError>
+                    </div>
+    
+                    <NextStepBtn>
+                        Отправить
+                    </NextStepBtn>
+                </form>
+            </template>
+        </DefaultSection>
+
+        <DefaultSection>
+            <template #h2Header>
+                График веса
+            </template>
+            <template #mainContent>
+                <WeightChart :weights="weights" :key="chartKey"></WeightChart>
+            </template>
+        </DefaultSection>
+
+        <DefaultSection>
+            <template #h2Header>
+                Подвести итоги дня
+            </template>
+            <template #mainContent>
+                <form @submit.prevent="handleSubmitSummary" class="flex flex-col gap-2 p-2 md:p-4">
+                    <div>
+                        <FormInput v-model="steps" id="stepsCount" name="stepsCount" type="number" placeholder="Введите количество шагов" min="0" max="200000" @validation="statsErrors.steps = $event">
+                            Количество шагов
+                        </FormInput>
+                        <FormInputError v-if="statsErrors.steps">{{ statsErrors.steps }}</FormInputError>
+                    </div>
+    
+                    <div>
+                        <FormInput v-model="burnedCalories" id="burnedKcal" name="burnedKcal" type="number" placeholder="Введите количество (в ккал)" min="0" max="10000" @validation="statsErrors.burned_calories = $event">
+                            Сожжено калорий
+                        </FormInput>
+                        <FormInputError v-if="statsErrors.burned_calories">{{ statsErrors.burned_calories }}</FormInputError>
+                    </div>
+    
+                    <div>
+                        <FormInput v-model="waterMl" id="waterDrinked" name="waterDrinked" type="number" placeholder="Введите количество (в мл)" min="0" max="15000" @validation="statsErrors.water_ml = $event">
+                            Выпито воды
+                        </FormInput>
+                        <FormInputError v-if="statsErrors.water_ml">{{ statsErrors.water_ml }}</FormInputError>
+                    </div>
+    
+                    <NextStepBtn>
+                        Отправить
+                    </NextStepBtn>
+                </form>
+            </template>
+        </DefaultSection>
+
+        <DefaultSection v-if="isTodayStatsExist">
+            <template #h2Header>
+                Итоги дня
+            </template>
+
+            <template #mainContent>
+                <div class="dark:text-[#c9cbd0] bg-[#e1e6d9] dark:bg-[#0f172a] p-2 rounded-xl md:p-4">
+                    <p class="font-light md:text-xl">Сожжено {{ todayStats?.burned_calories }} ккал</p>
+                    <p class="font-light md:text-xl">Пройдено {{ todayStats?.steps }} шагов</p>
+                    <p class="font-light md:text-xl">Выпито {{ todayStats?.water_ml }} миллилитров воды</p>
+                    <p class="font-bold md:text-xl">Так держать!</p>
                 </div>
-
-                <NextStepBtn>
-                    Отправить
-                </NextStepBtn>
-            </form>
-
-        </section>
-        <section class="bg-[#f8fdef] dark:bg-[#0a1120] w-90 rounded-xl mt-8 p-4 md:w-3xl md:mt-16 lg:w-5xl lg:mt-20">
-            <h2 class="text-2xl dark:text-[#c9cbd0] font-bold md:text-3xl">График веса</h2>
-
-            <WeightChart :weights="weights" :key="chartKey"></WeightChart>
-        </section>
-        <section class="bg-[#f8fdef] dark:bg-[#0a1120] w-90 rounded-xl mt-8 p-4 md:w-3xl md:mt-16 lg:w-5xl lg:mt-20">
-            <h2 class="text-2xl dark:text-[#c9cbd0] font-bold md:text-3xl">Подвести итоги дня</h2>
-            <form @submit.prevent="handleSubmitSummary" class="flex flex-col gap-2">
-                <div>
-                    <FormInput v-model="steps" id="stepsCount" name="stepsCount" type="number" placeholder="Введите количество шагов" min="0" max="200000" @validation="statsErrors.steps = $event">
-                        Количество шагов
-                    </FormInput>
-                    <FormInputError v-if="statsErrors.steps">{{ statsErrors.steps }}</FormInputError>
-                </div>
-
-                <div>
-                    <FormInput v-model="burnedCalories" id="burnedKcal" name="burnedKcal" type="number" placeholder="Введите количество (в ккал)" min="0" max="10000" @validation="statsErrors.burned_calories = $event">
-                        Сожжено калорий
-                    </FormInput>
-                    <FormInputError v-if="statsErrors.burned_calories">{{ statsErrors.burned_calories }}</FormInputError>
-                </div>
-
-                <div>
-                    <FormInput v-model="waterMl" id="waterDrinked" name="waterDrinked" type="number" placeholder="Введите количество (в мл)" min="0" max="15000" @validation="statsErrors.water_ml = $event">
-                        Выпито воды
-                    </FormInput>
-                    <FormInputError v-if="statsErrors.water_ml">{{ statsErrors.water_ml }}</FormInputError>
-                </div>
-
-                <NextStepBtn>
-                    Отправить
-                </NextStepBtn>
-            </form>
-        </section>
-        <section class="bg-[#f8fdef] dark:bg-[#0a1120] w-90 rounded-xl mt-8 p-4 md:w-3xl md:mt-16 lg:w-5xl lg:mt-20"
-            v-if="isTodayStatsExist">
-            <h2 class="text-2xl dark:text-[#c9cbd0] font-bold md:text-3xl">Итоги дня</h2>
-            <div class="dark:text-[#c9cbd0] bg-[#e1e6d9] dark:bg-[#0f172a] p-2 rounded-xl md:p-4">
-                <p class="font-light md:text-xl">Сожжено {{ todayStats?.burned_calories }} ккал</p>
-                <p class="font-light md:text-xl">Пройдено {{ todayStats?.steps }} шагов</p>
-                <p class="font-light md:text-xl">Выпито {{ todayStats?.water_ml }} миллилитров воды</p>
-                <p class="font-bold md:text-xl">Так держать!</p>
-            </div>
-        </section>
+            </template>
+        </DefaultSection>
     </DefaultLayout>
 </template>
