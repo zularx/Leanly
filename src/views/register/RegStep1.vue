@@ -7,6 +7,7 @@
     import FormHeader from '@/components/ui/FormHeader.vue';
     import { ref } from 'vue';
 
+
     const router = useRouter();
 
     const register = useRegisterStore();
@@ -26,19 +27,43 @@
             <FormHeader>Регистрация: шаг 1</FormHeader>
             <form @submit.prevent="nextStep" class="w-full flex mt-4 flex-col gap-3 items-center justify-center text-[#151614]">
                 <FormInput v-model="register.nickname" id="nickName" name="nickName" type="text" placeholder="Введите никнейм" minlength="2" maxlength="30" required>
-                    Никнейм
+                    <template #inputLabel>
+                        Никнейм
+                    </template>
+
+                    <template #inputError>
+                        Заглушка ошибки
+                    </template>
                 </FormInput>
 
                 <FormInput v-model="register.email" id="email" name="email" type="email" placeholder="Введите email" maxlength="100" required>
-                    Электронная почта
+                    <template #inputLabel>
+                        Электронная почта
+                    </template>
+
+                    <template #inputError>
+                        Заглушка ошибки
+                    </template>
                 </FormInput>
 
                 <FormInput v-model="register.password" id="password" name="password" type="password" placeholder="Введите пароль" minlength="10" maxlength="128" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{10,128}$" required>
-                    Пароль
+                    <template #inputLabel>
+                        Пароль
+                    </template>
+
+                    <template #inputError>
+                        Заглушка ошибки
+                    </template>
                 </FormInput>
 
                 <FormInput v-model="confirmPassword" id="confirmPassword" name="confirmPassword" type="password" placeholder="Введите пароль" minlength="10" maxlength="128" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{10,128}$" required>
-                    Подтвердите пароль
+                    <template #inputLabel>
+                        Подтвердите пароль
+                    </template>
+
+                    <template #inputError>
+                        Заглушка ошибки
+                    </template>
                 </FormInput>
 
                 <NextStepBtn>

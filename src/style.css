@@ -5,3 +5,30 @@
 @theme {
     --breakpoint-sm: 420px;
 }
+
+@layer base {
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 1000px #cbcfc3 inset !important;
+        -webkit-text-fill-color: #151614 !important;
+        transition: background-color 9999s ease-in-out 0s;
+    }
+
+    .dark input:-webkit-autofill,
+    .dark input:-webkit-autofill:hover,
+    .dark input:-webkit-autofill:focus,
+    .dark input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 1000px #13203a inset !important;
+        -webkit-text-fill-color: #c9cbd0 !important;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+}
