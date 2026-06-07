@@ -3,14 +3,29 @@
     import { useAuthStore } from '@/stores/authstore';
     import { useRouter } from 'vue-router';
     import { bmi, weightLeft, bmiToString, goalToString, activityToSting } from '@/services/profileService.ts';
+    import { deleteProfile } from '@/api/deleteProfileApi';
+    import { useToast } from 'vue-toastification'
 
     
     const router = useRouter()
-    const auth = useAuthStore();
+    const auth = useAuthStore()
+    const toast = useToast()
+
 
     function logoutClicked() {
         auth.logOut()
         router.push('/auth')
+    }
+
+    async function deleteClicked() {
+        try {
+            const res = await deleteProfile()
+            auth.logOut()
+            router.push('/auth')
+            toast.success(res)
+        } catch (err) {
+            toast.error(err)
+        }
     }
 </script>
 
@@ -40,7 +55,10 @@
                     <p class="md:text-xl">До желаемого веса осталось: {{ weightLeft ?? '' }} Кг</p>
                 </div>
                 
-                <button class="border-3 px-2 py-1 rounded-xl cursor-pointer dark:text-[#c9cbd0] dark:border-[#fb7085] border-[#efc6c2] dark:hover:bg-[#fb7085] dark:hover:text-[#150406] hover:bg-[#efc6c2] dark:active:bg-[#fc4863] active:bg-[#f0948c] dark:active:border-[#fc4863] active:border-[#f0948c] md:text-xl md:mt-2 transition-colors duration-100" @click="logoutClicked">Выйти</button>
+                <div class="flex justify-between items-center">
+                    <button class="border-3 px-2 py-1 rounded-xl cursor-pointer dark:text-[#c9cbd0] dark:border-[#fb7085] border-[#efc6c2] dark:hover:bg-[#fb7085] dark:hover:text-[#150406] hover:bg-[#efc6c2] dark:active:bg-[#fc4863] active:bg-[#f0948c] dark:active:border-[#fc4863] active:border-[#f0948c] md:text-xl md:mt-2 transition-colors duration-100" @click="logoutClicked">Выйти</button>
+                    <button class="border-3 px-2 py-1 rounded-xl cursor-pointer dark:text-[#c9cbd0] dark:border-[#fb7085] border-[#efc6c2] dark:hover:bg-[#fb7085] dark:hover:text-[#150406] hover:bg-[#efc6c2] dark:active:bg-[#fc4863] active:bg-[#f0948c] dark:active:border-[#fc4863] active:border-[#f0948c] md:text-xl md:mt-2 transition-colors duration-100" @click="deleteClicked">Удалить профиль</button>
+                </div>
             </div>
         </section>
     </DefaultLayout>
