@@ -25,7 +25,7 @@ const router = createRouter({
     { path: '/graphs', component: AppGraphs, meta: { requiersAuth: true} },
     { path: '/recepies', component: AppRecepies, meta: { requiersAuth: true} }, 
     { path: '/meals-diary', component: AppMealsDiary, meta: { requiersAuth: true} },
-    { path: '/settings', component: SettingsPage, meta: { requiresAuth: true } }
+    { path: '/settings', component: SettingsPage, meta: { requiersAuth: true} },
   ],
 })
 

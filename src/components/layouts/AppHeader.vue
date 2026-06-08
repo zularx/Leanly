@@ -17,7 +17,7 @@
                     <HeaderNavLink to="/recepies">Recepies</HeaderNavLink>
                 </div>
 
-                <SettingsButton to="/settings">
+                <SettingsButton to="/settings" v-if="auth.isAuthChecked && auth.user" :class="!(auth.isAuthChecked && auth.user) ? 'md:ml-auto' : 'md:ml-0'">
 
                 </SettingsButton>
             </nav>
@@ -32,9 +32,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useAuthStore } from '@/stores/authstore';
-import { chartKey } from '@/keys/chartKey';
 import HeaderNavLink from '../ui/HeaderNavLink.vue';
 import SettingsButton from '../ui/SettingsButton.vue';
 
@@ -42,29 +41,11 @@ const auth = useAuthStore();
 
 
 const isOpen = ref(false);
-const isDark = ref(false);
 
-onMounted(async () => {
-    isDark.value =
-        document.documentElement.classList.contains('dark');
-});
 
 
 function toggleMenu() {
     isOpen.value = !isOpen.value;
 }
-function toggleTheme() {
-    isDark.value = !isDark.value;
 
-    if (isDark.value) {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-    }
-
-    chartKey.value++
-
-}
 </script>
