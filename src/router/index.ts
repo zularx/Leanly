@@ -38,6 +38,7 @@ const router = createRouter({
         },
         {
           path: 'profile',
+          name: 'profile',
           component: ProfileSettingsPage,
           meta: {
             title: 'Настройки профиля'
@@ -45,6 +46,7 @@ const router = createRouter({
         },
         {
           path: 'security',
+          name: 'security',
           component: SecuritySettingsPage,
           meta: {
             title: 'Настройки безопасности'
@@ -52,6 +54,7 @@ const router = createRouter({
         },
         {
           path: 'appearance',
+          name: 'appearance',
           component: AppearanceSettingsPage,
           meta: {
             title: 'Настройки отображения'
