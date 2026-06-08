@@ -5,6 +5,7 @@
     import { bmi, weightLeft, bmiToString, goalToString, activityToSting } from '@/services/profileService.ts';
     import { deleteProfile } from '@/api/deleteProfileApi';
     import { useToast } from 'vue-toastification'
+import RedButton from '@/components/ui/RedButton.vue';
 
     
     const router = useRouter()
@@ -63,8 +64,8 @@
                 </div>
                 
                 <div class="flex justify-between items-center w-full">
-                    <button class="border-3 px-2 py-1 rounded-xl cursor-pointer dark:text-[#c9cbd0] dark:border-[#fb7085] border-[#efc6c2] dark:hover:bg-[#fb7085] dark:hover:text-[#150406] hover:bg-[#efc6c2] dark:active:bg-[#fc4863] active:bg-[#f0948c] dark:active:border-[#fc4863] active:border-[#f0948c] md:text-xl md:mt-2 transition-colors duration-100" @click="deleteClicked">Удалить профиль</button>
-                    <button class="border-3 px-2 py-1 rounded-xl cursor-pointer dark:text-[#c9cbd0] dark:border-[#fb7085] border-[#efc6c2] dark:hover:bg-[#fb7085] dark:hover:text-[#150406] hover:bg-[#efc6c2] dark:active:bg-[#fc4863] active:bg-[#f0948c] dark:active:border-[#fc4863] active:border-[#f0948c] md:text-xl md:mt-2 transition-colors duration-100" @click="logoutClicked">Выйти</button>
+                    <RedButton @click="deleteClicked">Удалить профиль</RedButton>
+                    <RedButton @click="logoutClicked">Выйти</RedButton>
                 </div>
             </div>
         </section>
