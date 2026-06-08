@@ -1,5 +1,5 @@
 <template>
-    <button @click="onClick" class="flex ml-4 mt-40 group items-center justify-center bg-[#00000000] hover:bg-[#e1e6d9] dark:hover:bg-[#13203a] active:bg-[#afb4a6] transition-colors duration-100 cursor-pointer rounded-3xl w-12 h-12 md:mt-0">
+    <button @click="onClick" class="flex group items-center justify-center bg-[#00000000] hover:bg-[#e1e6d9] dark:hover:bg-[#13203a] active:bg-[#afb4a6] transition-colors duration-100 cursor-pointer rounded-3xl w-12 h-12 md:mt-0">
         <svg
             class="w-8 h-8 dark:text-[#cdd0d4] text-[#343300] dark:group-hover:text-[#eef5fe] group-hover:text-[#50504d] dark:group-active:text-[#818cf8] group-active:text-[#edd000] transition-colors duration-100"
             viewBox="0 0 24 24"

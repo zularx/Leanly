@@ -10,7 +10,10 @@ import AppGraphs from '@/views/AppGraphs.vue'
 import AppRecepies from '@/views/AppRecepies.vue'
 import AppMealsDiary from '@/views/AppMealsDiary.vue'
 import { useRegisterStore } from '@/stores/register'
-import SettingsPage from '@/views/SettingsPage.vue'
+import SettingsPage from '@/views/Settings/SettingsPage.vue'
+import ProfileSettingsPage from '@/views/Settings/ProfileSettingsPage.vue'
+import SecuritySettingsPage from '@/views/Settings/SecuritySettingsPage.vue'
+import AppearanceSettingsPage from '@/views/Settings/AppearanceSettingsPage.vue'
 
 
 const router = createRouter({
@@ -25,7 +28,37 @@ const router = createRouter({
     { path: '/graphs', component: AppGraphs, meta: { requiersAuth: true} },
     { path: '/recepies', component: AppRecepies, meta: { requiersAuth: true} }, 
     { path: '/meals-diary', component: AppMealsDiary, meta: { requiersAuth: true} },
-    { path: '/settings', component: SettingsPage, meta: { requiersAuth: true} },
+    { 
+      path: '/settings', 
+      component: SettingsPage, 
+      children:[
+        {
+          path: '',
+          redirect: 'profile'
+        },
+        {
+          path: 'profile',
+          component: ProfileSettingsPage,
+          meta: {
+            title: 'Настройки профиля'
+          }
+        },
+        {
+          path: 'security',
+          component: SecuritySettingsPage,
+          meta: {
+            title: 'Настройки безопасности'
+          }
+        },
+        {
+          path: 'appearance',
+          component: AppearanceSettingsPage,
+          meta: {
+            title: 'Настройки отображения'
+          }
+        }
+      ]
+    },
   ],
 })
 

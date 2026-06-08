@@ -1,13 +1,13 @@
 <template>
-    <DefaultLayout>
+    <div class="flex justify-between border border-[#cbcfc3] dark:border-[#1e293b] rounded-2xl items-center p-2 transition-colors duration-100">
+        <p>Сменить тему</p>
         <ThemeButton @click="toggleTheme">
 
         </ThemeButton>
-    </DefaultLayout>
+    </div>
 </template>
 
 <script setup lang="ts">
-import DefaultLayout from '@/layout/DefaultLayout.vue';
 import { chartKey } from '@/keys/chartKey';
 import { ref, onMounted} from 'vue';
 import ThemeButton from '@/components/ui/ThemeButton.vue';
@@ -33,4 +33,5 @@ function toggleTheme() {
     chartKey.value++
 
 }
+
 </script>
