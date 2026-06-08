@@ -17,32 +17,9 @@
                     <HeaderNavLink to="/recepies">Recepies</HeaderNavLink>
                 </div>
 
-                <button @click="toggleTheme" class="flex ml-4 mt-40 group items-center justify-center bg-[#00000000] hover:bg-[#e1e6d9] dark:hover:bg-[#13203a] active:bg-[#afb4a6] transition-colors duration-100 cursor-pointer rounded-3xl w-12 h-12 md:mt-0"
-                :class="!(auth.isAuthChecked && auth.user) ? 'md:ml-auto' : 'md:ml-0'">
-                    <svg
-                        class="w-8 h-8 dark:text-[#cdd0d4] text-[#343300] dark:group-hover:text-[#eef5fe] group-hover:text-[#50504d] dark:group-active:text-[#818cf8] group-active:text-[#edd000] transition-colors duration-100"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        >
-                        <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
+                <SettingsButton to="/settings">
 
-                        <line x1="12" y1="1" x2="12" y2="4"></line>
-                        <line x1="12" y1="20" x2="12" y2="23"></line>
-
-                        <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"></line>
-                        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"></line>
-
-                        <line x1="1" y1="12" x2="4" y2="12"></line>
-                        <line x1="20" y1="12" x2="23" y2="12"></line>
-
-                        <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"></line>
-                        <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+                </SettingsButton>
             </nav>
     
             <button @click="toggleMenu" id="burgerBtn" class="w-10 h-10 flex flex-col gap-1 justify-center cursor-pointer group md:hidden">
@@ -59,6 +36,7 @@ import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/authstore';
 import { chartKey } from '@/keys/chartKey';
 import HeaderNavLink from '../ui/HeaderNavLink.vue';
+import SettingsButton from '../ui/SettingsButton.vue';
 
 const auth = useAuthStore();
 

@@ -10,6 +10,7 @@ import AppGraphs from '@/views/AppGraphs.vue'
 import AppRecepies from '@/views/AppRecepies.vue'
 import AppMealsDiary from '@/views/AppMealsDiary.vue'
 import { useRegisterStore } from '@/stores/register'
+import SettingsPage from '@/views/SettingsPage.vue'
 
 
 const router = createRouter({
@@ -24,6 +25,7 @@ const router = createRouter({
     { path: '/graphs', component: AppGraphs, meta: { requiersAuth: true} },
     { path: '/recepies', component: AppRecepies, meta: { requiersAuth: true} }, 
     { path: '/meals-diary', component: AppMealsDiary, meta: { requiersAuth: true} },
+    { path: '/settings', component: SettingsPage, meta: { requiresAuth: true } }
   ],
 })
 
