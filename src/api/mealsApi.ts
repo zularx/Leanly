@@ -15,9 +15,9 @@ export const summaryMeal = ref({
     totalCarbs: 0,
 })
 
-export async function submitMeal(payload: CreateMealPlayload) {
+export async function submitMeal(payload: CreateMealPlayload, selectedDate: string) {
     const auth = useAuthStore()
-    const res = await fetch(`${API_BASE_URL}/meals/`, { 
+    const res = await fetch(`${API_BASE_URL}/meals/${selectedDate}`, { 
         method: 'POST', 
             headers: { 'Content-Type': 'application/json',
             'Authorization': `Bearer ${auth.token}` 

@@ -34,7 +34,7 @@
             proteins: proteins.value,
             carbs: carbs.value,
             fats: fats.value,
-        })
+        }, selectedDate.value)
 
         meals.value = await loadMeals(selectedDate.value)
         summaryMeal.value = await loadSummaryMeal(selectedDate.value)
