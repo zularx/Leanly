@@ -24,13 +24,13 @@
     )
 
     const summaryMeal = ref({
-        calories: 0,
-        proteins: 0,
-        fats: 0,
-        carbs: 0,
+        totalCalories: 0,
+        totalProteins: 0,
+        totalFats: 0,
+        totalCarbs: 0,
     })
 
-    async function handleSubmitWeight() {
+    async function handleSubmitMeal() {
         await submitMeal({
             meal_type: mealType.value,
             meal_name: mealName.value,
@@ -41,6 +41,7 @@
         })
 
         meals.value = await loadMeals(selectedDate.value)
+        summaryMeal.value = await loadSummaryMeal(selectedDate.value)
 
         mealName.value = ''
         calories.value = ''
@@ -52,7 +53,6 @@
     onMounted(async () => {
         meals.value = await loadMeals(selectedDate.value)
         summaryMeal.value = await loadSummaryMeal(selectedDate.value)
-        console.log(isMealsExist.value)
     })
 
 
@@ -66,7 +66,7 @@
             </template>
             
             <template #mainContent>
-                <form @submit.prevent="handleSubmitWeight" class="flex flex-col p-2 gap-2 md:p-4 md:gap-4">
+                <form @submit.prevent="handleSubmitMeal" class="flex flex-col p-2 gap-2 md:p-4 md:gap-4">
 
                     <FormInput v-model="mealName" id="mealName" name="mealName" type="text" placeholder="Введите название блюда или блюд" minlength="2" maxlength="100" @validation="mealsErrors.meal_name = $event">
                         <template #inputLabel>
@@ -146,7 +146,7 @@
 
             <template #mainContent>
                 <p v-if="!isMealsExist" class="text-xl dark:text-[#c9cbd0] text-center mb-20 mt-20">Похоже вы пока не добавили ни одного блюда</p>
-                <div class="bg-[#cbcfc3] dark:bg-[#0f172a] dark:text-[#c9cbd0] rounded-xl mb-2 p-2 md:flex md:justify-between md:items-center" v-for="meal in meals" :key="meal.mid">
+                <div class="bg-[#cbcfc3] dark:bg-[#0f172a] dark:text-[#c9cbd0] rounded-xl my-2 p-2 md:flex md:justify-between md:items-center" v-for="meal in meals" :key="meal.mid">
                     <div>
                         <p class="text-xl font-bold md:text-2xl">{{ meal.meal_name }}</p>
                         <p class="font-light md:text-xl">{{ meal.meal_type }}</p>
@@ -157,6 +157,10 @@
                         <p class="text-xl font-light">Жиры: {{ meal.fats }} г</p>
                         <p class="text-xl font-light">Углеводы: {{ meal.carbs }} г</p>
                     </div>
+                </div>
+                <div v-if="isMealsExist">
+                    <p class="text-xl font-semibold md:text-2xl dark:text-[#c9cbd0]">Итого:</p>
+                    <p class="md:text-xl dark:text-[#c9cbd0]">{{ summaryMeal.totalCalories }} Ккал | {{ summaryMeal.totalProteins }} Б {{ summaryMeal.totalFats }} Ж {{ summaryMeal.totalCarbs }} У</p>
                 </div>
             </template>
         </DefaultSection>

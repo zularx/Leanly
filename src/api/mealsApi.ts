@@ -71,7 +71,7 @@ export async function loadSummaryMeal(selectedDate: string) {
         }
 
         const summary = await res.json()
-        return summary
+        return summary[0]
     } catch (err) {
         console.log('Error loading meals summary:', err)
         return null

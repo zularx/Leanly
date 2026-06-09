@@ -8,7 +8,7 @@
                 class="text-xl font-black text-[#419400] dark:text-[#3abdf7] hover:text-[#bdc000] dark:hover:text-[#818cf8] dark:active:text-[#cdd0d4] active:text-[#343300] transition-colors duration-100 md:text-3xl lg:text-4xl">
                 Leanly</RouterLink>
             <nav id="navbar"
-                class="fixed w-60 h-screen z-2 text-2xl top-0 right-0 bg-[#cbcfc3] dark:bg-[#0f172a] rounded-l-2xl transition-all duration-100 ease-in-out md:relative md:flex md:flex-1 md:items-center md:w-fit md:h-fit md:translate-x-0 dark:md:bg-[#00000000] md:bg-[#00000000] md:text-xl"
+                class="fixed w-60 h-screen z-2 text-2xl top-0 right-0 bg-[#cbcfc3] dark:bg-[#0f172a] rounded-l-2xl transition-all duration-100 ease-in-out md:relative md:flex md:flex-1 md:items-center md:w-fit md:h-fit md:translate-x-0 dark:md:bg-[#00000000] md:bg-[#00000000] md:text-[17px] lg:text-xl"
                 :class="isOpen ? 'translate-x-0 right-0' : 'translate-x-full'"
                 ref="navRef">
                 <button ref="burgerBtn" @click="toggleMenu"
@@ -21,11 +21,11 @@
 
                 <div v-if="auth.isAuthChecked && auth.user"
                     class="flex flex-col gap-5 mt-20 ml-4 md:mt-0 md:mx-auto md:flex-row">
-                    <HeaderNavLink to="/">Dashboard</HeaderNavLink>
-                    <HeaderNavLink to="/meals-diary">Meals Diary</HeaderNavLink>
-                    <HeaderNavLink to="/profile">Profile</HeaderNavLink>
-                    <HeaderNavLink to="/graphs">Graphs</HeaderNavLink>
-                    <HeaderNavLink to="/recepies">Recepies</HeaderNavLink>
+                    <HeaderNavLink to="/">Главная</HeaderNavLink>
+                    <HeaderNavLink to="/meals-diary">Дневник питания</HeaderNavLink>
+                    <HeaderNavLink to="/profile">Профиль</HeaderNavLink>
+                    <HeaderNavLink to="/graphs">Графики</HeaderNavLink>
+                    <HeaderNavLink to="/recepies">Рецепты</HeaderNavLink>
                 </div>
 
                 <SettingsButton to="/settings/profile" v-if="auth.isAuthChecked && auth.user"
