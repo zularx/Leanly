@@ -119,12 +119,12 @@ import RedButton from '@/components/ui/RedButton.vue';
                     :meals="group.items || []">
 
                 </MealSection>
-                    <div v-if="isMealsExist">
+                    <div v-if="isMealsExist" class="mb-2">
                         <p class="text-xl font-semibold md:text-2xl dark:text-[#c9cbd0]">Итого:</p>
                         <p class="md:text-xl dark:text-[#c9cbd0]">{{ summaryMeal.totalCalories }} Ккал | {{ summaryMeal.totalProteins }} Б {{ summaryMeal.totalFats }} Ж {{ summaryMeal.totalCarbs }} У</p>
                     </div>
                     <div class="flex justify-end">
-                        <NextStepBtn @click="openDialogClicked">
+                        <NextStepBtn @click="openDialogClicked" :noMargin="true">
                             Добавить запись в дневник
                         </NextStepBtn>
                     </div>
@@ -207,7 +207,7 @@ import RedButton from '@/components/ui/RedButton.vue';
                         <RedButton @click="closeDialogClicked" type="button">
                             Закрыть
                         </RedButton>
-                        <NextStepBtn>
+                        <NextStepBtn :noMargin="true">
                             Обновить
                         </NextStepBtn>
                     </div>
