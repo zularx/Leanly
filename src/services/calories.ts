@@ -28,7 +28,10 @@ const tdee = computed(() => {
 
     const bmrValue = bmr.value
 
-    const multipliers: Record<string, number> = {
+    const sportActivity = user.activity
+    const stepActivity = user.avg_steps
+
+    const onlyWorkoutMultipliers: Record<string, number> = {
         passive: 1.2,
         low: 1.375,
         medium: 1.55,
@@ -36,7 +39,45 @@ const tdee = computed(() => {
         ultra: 1.9,
     }
 
-    return bmrValue * (multipliers[user.activity] || 1.2)
+    const onlyStepMultipliers: Record<string, number> = {
+        'under_2k': 1.2,
+        '2k-5k': 1.25,
+        '5k-7.5k': 1.35,
+        '7.5k-10k': 1.45,
+        '10k-15k': 1.6,
+        '15k-20k': 1.75,
+        '20k+': 1.9,
+    }
+
+    const workoutBonuses: Record<string, number> = {
+        passive: 0.0,
+        low: 0.075,
+        medium: 0.15,
+        high: 0.225,
+        ultra: 0.325,
+    }
+
+    const hasSteps = !!stepActivity
+    const hasSport = !!sportActivity
+
+    let finalMultiplier = 1.2
+
+    if (hasSport && hasSteps) {
+        const baseSteps = onlyStepMultipliers[stepActivity] || 1.2
+        const sportBonus = workoutBonuses[sportActivity] || 0.0
+
+        finalMultiplier = baseSteps + sportBonus
+
+        if (finalMultiplier > 1.9) {
+            finalMultiplier = 1.9
+        }
+    } else if(hasSteps) {
+        finalMultiplier = onlyStepMultipliers[stepActivity] || 1.2
+    } else if (hasSport) {
+        finalMultiplier = onlyWorkoutMultipliers[sportActivity] || 1.2
+    }
+
+    return bmrValue * finalMultiplier
 })
 
 export function targetCalories(goal: string | undefined) {

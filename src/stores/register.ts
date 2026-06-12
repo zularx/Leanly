@@ -17,5 +17,6 @@ export const useRegisterStore = defineStore('register', {
         activity: '',
         goal: '',
         goalWeight: '',
+        avg_steps: ''
     })
 })

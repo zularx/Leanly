@@ -39,9 +39,25 @@
         <SelectYourActivity v-model="profileSettings.activity">
 
         </SelectYourActivity>
+        <FormSelect id="everydayAvgSteps" name="everydayAvgSteps" v-model="profileSettings.avgSteps">
+            <template #selectLabel>
+                Сколько шагов в день вы делаете?
+            </template>
+            <template #options>
+                <option value="" disabled>Выберите среднее количество шагов в день</option>
+                <option value="under_2k">Меньше 2000</option>
+                <option value="2k-5k">от 2000 до 5000</option>
+                <option value="5k-7.5k">от 5000 до 7500</option>
+                <option value="7.5k-10k">от 7500 до 10000</option>
+                <option value="10k-15k">от 10000 до 15000</option>
+                <option value="15k-20k">от 15000 до 20000</option>
+                <option value="20k+">20000 и больше</option>
+            </template>
+        </FormSelect>
         <SelectYourGoal v-model="profileSettings.goal">
 
         </SelectYourGoal>
+        
 
         <NextStepBtn>
             Обновить данные
@@ -73,6 +89,7 @@ import NextStepBtn from '@/components/ui/NextStepBtn.vue';
 import { useProfileSettingsStore } from '@/stores/profileSettingsStore';
 import { onMounted } from 'vue';
 import { getProfileSettings, profileUpdateErrors, updateProfileSettings } from '@/api/profileSettingsApi';
+import FormSelect from '@/components/ui/FormSelect.vue';
 
 const router = useRouter()
 const auth = useAuthStore()

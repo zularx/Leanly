@@ -10,7 +10,8 @@ export const useProfileSettingsStore = defineStore('profileSettings',{
         userAge: '',
         
         activity: '',
-        goal: ''
+        goal: '',
+        avgSteps: ''
     }),
 
     actions: {
@@ -23,6 +24,7 @@ export const useProfileSettingsStore = defineStore('profileSettings',{
 
             this.activity = String(data.activity) ?? ''
             this.goal = String(data.goal) ?? ''
+            this.avgSteps = String(data.avg_steps) ?? ''
         }
     }
 })

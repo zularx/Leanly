@@ -24,6 +24,7 @@ export const submitReg = async () => {
     formData.append('userHeight', String(Number(register.userHeight)));
     formData.append('userAge', String(Number(register.userAge)));
     formData.append('goalWeight', String(Number(register.goalWeight)));
+    formData.append('avg_steps', register.avg_steps)
 
     if (register.avatar) {
         formData.append('avatar', register.avatar);

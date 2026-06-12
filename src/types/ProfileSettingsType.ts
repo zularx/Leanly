@@ -5,5 +5,5 @@ export type ProfileSettingsType = {
     userAge?: string
     activity?: string
     goal?: string
-
+    avg_steps?: string
 }
