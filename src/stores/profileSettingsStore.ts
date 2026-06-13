@@ -4,6 +4,7 @@ import type { ProfileSettingsType } from '@/types/ProfileSettingsType';
 export const useProfileSettingsStore = defineStore('profileSettings',{
     state: () => ({
         nickname: '',
+        user_avatar: null as File | null,
 
         userHeight: '',
         goalWeight: '',

@@ -1,6 +1,6 @@
 <template>
     <SettingsLayout>
-        <h1 class="text-2xl mb-4 font-bold lg:mb-6">{{ route.meta.title }}</h1>
+        <h1 class="text-2xl mb-4 font-bold lg:mb-6 md:text-3xl">{{ route.meta.title }}</h1>
         <RouterView>
             
         </RouterView>

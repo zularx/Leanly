@@ -26,16 +26,28 @@ export async function updateProfileSettings() {
     try {
         const auth = useAuthStore()
         const profileSettings = useProfileSettingsStore()
-        const payload = {
-            ...profileSettings.$state
+
+        const formData = new FormData()
+
+        formData.append('nickname', profileSettings.nickname)
+        if (profileSettings.user_avatar) {
+            formData.append('user_avatar', profileSettings.user_avatar)
         }
+
+        formData.append('userHeight', profileSettings.userHeight)
+        formData.append('goalWeight', profileSettings.goalWeight)
+        formData.append('userAge', profileSettings.userAge)
+
+        formData.append('activity', profileSettings.activity)
+        formData.append('goal', profileSettings.goal)
+        formData.append('avgSteps', profileSettings.avgSteps)
+
         const res = await fetch(`${API_BASE_URL}/profile-settings`, {
             method: 'PUT',
             headers: {
-                'Content-type': 'application/json',
                 Authorization: `Bearer ${auth.token}`
             },
-            body: JSON.stringify(payload)
+            body: formData
         })
 
         const data = await res.json()

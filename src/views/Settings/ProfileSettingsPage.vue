@@ -1,15 +1,21 @@
 <template>
     <form @submit.prevent="submitProfileHandler" class="flex flex-col gap-4 border border-[#cbcfc3] dark:border-[#1e293b] p-6 rounded-2xl mb-10">
-        <FormInput v-model="profileSettings.nickname" id="currentNickname" type="text" placeholder="Введите никнейм" minlength="2" maxlength="30" autocomplete="off" @validation="profileUpdateErrors.nickname = $event">
-            <template #inputLabel>
-                Никнейм
-            </template>
-            <template #inputError v-if="profileUpdateErrors.nickname">
-                {{ profileUpdateErrors.nickname }}
-            </template>
-        </FormInput>
-
         <div class="flex flex-col border border-[#cbcfc3] dark:border-[#1e293b] p-4 gap-4 rounded-2xl">
+            <h2 class="text-xl font-semibold md:text-2xl">Основные настройки</h2>
+            <FormInput v-model="profileSettings.nickname" id="currentNickname" type="text" placeholder="Введите никнейм" minlength="2" maxlength="30" autocomplete="off" @validation="profileUpdateErrors.nickname = $event">
+                <template #inputLabel>
+                    Никнейм
+                </template>
+                <template #inputError v-if="profileUpdateErrors.nickname">
+                    {{ profileUpdateErrors.nickname }}
+                </template>
+            </FormInput>
+            <AvatarInput v-model="profileSettings.user_avatar">
+                
+            </AvatarInput>
+        </div>
+        <div class="flex flex-col border border-[#cbcfc3] dark:border-[#1e293b] p-4 gap-4 rounded-2xl">
+            <h2 class="text-xl font-semibold md:text-2xl">Настройки параметров</h2>
             <FormInput v-model="profileSettings.userHeight" type="number" placeholder="Введите рост в см" min="120" max="240" step="0.01" id="userCurrentHeight" @validation="profileUpdateErrors.userHeight = $event">
                 <template #inputLabel>
                     Рост
@@ -35,29 +41,30 @@
                 </template>
             </FormInput>
         </div>
+        <div class="flex flex-col border border-[#cbcfc3] dark:border-[#1e293b] p-4 gap-4 rounded-2xl">
+            <h2 class="text-xl font-semibold md:text-2xl">Настройки активности и цели</h2>
+            <SelectYourActivity v-model="profileSettings.activity">
 
-        <SelectYourActivity v-model="profileSettings.activity">
+            </SelectYourActivity>
+            <FormSelect id="everydayAvgSteps" name="everydayAvgSteps" v-model="profileSettings.avgSteps">
+                <template #selectLabel>
+                    Сколько шагов в день вы делаете?
+                </template>
+                <template #options>
+                    <option value="" disabled>Выберите среднее количество шагов в день</option>
+                    <option value="under_2k">Меньше 2000</option>
+                    <option value="2k-5k">от 2000 до 5000</option>
+                    <option value="5k-7.5k">от 5000 до 7500</option>
+                    <option value="7.5k-10k">от 7500 до 10000</option>
+                    <option value="10k-15k">от 10000 до 15000</option>
+                    <option value="15k-20k">от 15000 до 20000</option>
+                    <option value="20k+">20000 и больше</option>
+                </template>
+            </FormSelect>
+            <SelectYourGoal v-model="profileSettings.goal">
 
-        </SelectYourActivity>
-        <FormSelect id="everydayAvgSteps" name="everydayAvgSteps" v-model="profileSettings.avgSteps">
-            <template #selectLabel>
-                Сколько шагов в день вы делаете?
-            </template>
-            <template #options>
-                <option value="" disabled>Выберите среднее количество шагов в день</option>
-                <option value="under_2k">Меньше 2000</option>
-                <option value="2k-5k">от 2000 до 5000</option>
-                <option value="5k-7.5k">от 5000 до 7500</option>
-                <option value="7.5k-10k">от 7500 до 10000</option>
-                <option value="10k-15k">от 10000 до 15000</option>
-                <option value="15k-20k">от 15000 до 20000</option>
-                <option value="20k+">20000 и больше</option>
-            </template>
-        </FormSelect>
-        <SelectYourGoal v-model="profileSettings.goal">
-
-        </SelectYourGoal>
-        
+            </SelectYourGoal>
+        </div>
 
         <NextStepBtn>
             Обновить данные
@@ -90,6 +97,7 @@ import { useProfileSettingsStore } from '@/stores/profileSettingsStore';
 import { onMounted } from 'vue';
 import { getProfileSettings, profileUpdateErrors, updateProfileSettings } from '@/api/profileSettingsApi';
 import FormSelect from '@/components/ui/FormSelect.vue';
+import AvatarInput from '@/components/ui/AvatarInput.vue';
 
 const router = useRouter()
 const auth = useAuthStore()
