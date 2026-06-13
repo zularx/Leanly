@@ -12,6 +12,7 @@
     import { useAuthStore } from '@/stores/authstore';
     import { loadSummaryMeal, summaryMeal } from '@/api/mealsApi';
     import ProgressBar from '@/components/ui/ProgressBar.vue';
+import { getTodayGoogleSteps } from '@/api/googleStepsApi';
 
     const auth = useAuthStore()
 
@@ -98,6 +99,7 @@
         await updateWeightData()
         todayStats.value = await loadStats(selectedDate.value)
         summaryMeal.value = await loadSummaryMeal(selectedDate.value)
+        getTodayGoogleSteps()
     })
 </script>
 
